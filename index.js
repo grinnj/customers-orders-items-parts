@@ -10,7 +10,11 @@ app.set('view engine', 'ejs');
 
 app.use(express.static(__dirname + '/views'));
 
-const port = 8080;
+const port = 80;
+
+var Ddos = require('ddos');
+var ddos = new Ddos({burst:10, limit:15});
+app.use(ddos.express);
 
 var db = new sqlite3.Database('./customers-orders-items-parts.db', (err) => {
     if (err) {
@@ -52,25 +56,36 @@ var db = new sqlite3.Database('./customers-orders-items-parts.db', (err) => {
   });
 });*/
 
-/*insertItem("Предмет");
-insertPart("Предмет","Часть 1",100);
-insertPart("Предмет","Часть 2",100);
-insertPart("Предмет","Часть 3",100);*/
-//insertOrder(2,"Предмет","01-01-2016");
+/*insertItem("Желтый банан");
+insertPart("Желтый банан","Банан",101);
+insertPart("Желтый банан","Желтый чехол для банана",250);
+insertItem("Компьютер");
+insertPart("Компьютер","Процессор",2550);
+insertPart("Компьютер","Видеокарта",1500);
+insertPart("Компьютер","Память",800);
+insertCustomer("Дмитрий","Дмитриев","380-666-69-69","dmitruy@email.com");
+insertOrder(3,"Компьютер","05-02-2019");
+insertCustomer("Владик","Горький","1337-69-88-41","vadim@email.com");
+insertOrder(4,"Желтый банан","21-06-2019");
+insertPart("Желтый банан","Желтый чехол для банана",250);*/
+//deleteRowFrom("parts","7");
 
 app.get("/", function(request, response){
 	getOrdersList(function (dbvar){
+		console.log("Request /");
 		response.render('index.ejs',{dbvar:dbvar});
 	});
 });
 
 app.get("/orders", function(request, response){
+	//console.log("Request </>");
 	response.redirect('/');
 });
 
 app.get("/parts", function(request, response){
 	getPartsList(function (dbvar){
 		getItemsById(dbvar,function(dbvar){
+			console.log("Request </parts>");
 			response.render('parts.ejs',{dbvar:dbvar});
 		});
 	});
@@ -78,12 +93,14 @@ app.get("/parts", function(request, response){
 
 app.get("/items", function(request, response){
 	getItemsList(function (dbvar){
+		console.log("Request </items>");
 		response.render('items.ejs',{dbvar:dbvar});
 	});
 });
 
 app.get("/customers", function(request, response){
 	getCustomersList(function (dbvar){
+		console.log("Request </items>");
 		response.render('customers.ejs',{dbvar:dbvar});
 	});
 });
@@ -135,12 +152,12 @@ function insertItem(item_name){
 	});
 }
 
-function insertPart(item_id, name, price){
+function insertPart(item_name, name, price){
 	if((typeof(item_name)==='undefined')||(typeof(name)==='undefined')){
 		return console.log("Item name or Part name is undefined. Cannot insert a row to parts table.");
 	}
 	if(typeof(price)==='undefined'){let price = 'Не указана';}
-	db.get(`SELECT id FROM items WHERE id  = ?`, [item_id], (err, row) => {
+	db.get(`SELECT id FROM items WHERE name  = ?`, [item_name], (err, row) => {
 		if (err) {
 			return console.error(err.message);
 		}
