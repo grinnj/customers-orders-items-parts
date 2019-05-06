@@ -156,7 +156,7 @@ function insertPart(item_id, name, price){
 }
 
 function deleteRowFrom(table_name, row_id){
-	
+	db.run(`DELETE FROM ${table_name} WHERE id = ${row_id}`,[]);
 }
 
 /*	getOrdersList();
