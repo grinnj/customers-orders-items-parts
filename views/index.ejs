@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="index.css" rel="stylesheet">
+</head>
+<body>
+<h3><a href="customers"><span title="Подсказка: Ссылка на страницу с таблицей покупателей.">Таблица покупателей</span></a></h3>
+<h3><a href="items"><span title="Подсказка: Ссылка на страницу с таблицей товаров.">Таблица товаров</span></a></h3>
+<h3><a href="parts"><span title="Подсказка: Ссылка на страницу с таблицей комплектующих.">Таблица комплектующих</span></a></h3>
+<h2>Таблица заказов</h2>
+
+<table style="width:100%">
+  <tr>
+	<th>Номер заказа</th>
+    <th>Наименование товара</th>
+    <th>Покупатель</th> 
+    <th>Дата</th>
+  </tr>
+  <% for(let i=0; i<dbvar.length; i++){%>
+	<tr onclick="openEdit(<%=dbvar[i].order_id%>)", id="<%=i%>">
+		<th><%=dbvar[i].order_id%></th>
+		<th><%=dbvar[i].item_name%></th>
+		<th><%=dbvar[i].customer%></th> 
+		<th><%=dbvar[i].date%></th>
+	</tr>
+  <% }%>
+</table>
+
+</body>
+<script>
+	function openEdit(a){
+		//alert(a);
+	}
+</script>
+</html>

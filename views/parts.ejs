@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="parts.css" rel="stylesheet">
+</head>
+<body>
+<h3><a href="customers"><span title="Подсказка: Ссылка на страницу с таблицей покупателей.">Таблица покупателей</span></a></h3>
+<h3><a href="orders"><span title="Подсказка: Ссылка на страницу с таблицей заказов.">Таблица заказов</span></a></h3>
+<h3><a href="items"><span title="Подсказка: Ссылка на страницу с таблицей товаров.">Таблица товаров</span></a></h3>
+<h2>Таблица комплектующих</h2>
+
+<table style="width:100%">
+  <tr>
+	<th>Наименование комплектующей</th>
+    <th>Наименование товара</th>
+    <th>Цена</th> 
+  </tr>
+  <% for(let i=0; i<dbvar.length; i++){%>
+	<tr name="<%=dbvar[i].part_id%>", id="<%=i%>">
+		<th><%=dbvar[i].name%></th>
+		<th><%=dbvar[i].item_name%></th> 
+		<th><%=dbvar[i].price%></th>
+	</tr>
+  <% }%>
+</table>
+
+</body>
+<script>
+
+</script>
+</html>

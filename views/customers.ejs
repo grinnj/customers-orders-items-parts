@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="customers.css" rel="stylesheet">
+</head>
+<body>
+<h3><a href="orders"><span title="Подсказка: Ссылка на страницу с таблицей заказов.">Таблица заказов</span></a></h3>
+<h3><a href="items"><span title="Подсказка: Ссылка на страницу с таблицей товаров.">Таблица товаров</span></a></h3>
+<h3><a href="parts"><span title="Подсказка: Ссылка на страницу с таблицей комплектующих.">Таблица комплектующих</span></a></h3>
+<h2>Таблица покупателей</h2>
+
+<table style="width:100%">
+  <tr>
+	<th>Имя</th>
+    <th>Фамилия</th>
+    <th>Телефон</th> 
+    <th>Эл. почта</th>
+  </tr>
+  <% for(let i=0; i<dbvar.length; i++){%>
+	<tr name="<%=dbvar[i].customer_id%>", id="<%=i%>">
+		<th><%=dbvar[i].first_name%></th>
+		<th><%=dbvar[i].second_name%></th>
+		<th><%=dbvar[i].phone%></th> 
+		<th><%=dbvar[i].email%></th>
+	</tr>
+  <% }%>
+</table>
+
+</body>
+<script>
+
+</script>
+</html>
